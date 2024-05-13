@@ -53,8 +53,8 @@ The config file that should be passed to the command line tool has the following
     "log": true,
     "outputFormat": "application/n-quads",
     "iriToPath": {
-      "http://example.org/base/": "output/base/",
-      "http://example.org/other/": "output/other/"
+      "^http://example.org/base/": "output/base/",
+      "^http://example.org/other/": "output/other/"
     }
   }
 }
@@ -296,8 +296,8 @@ A quad sink that writes to files using an IRI to local file system path mapping.
     "outputFormat": "application/n-quads",
     "fileExtension": "$.nq",
     "iriToPath": {
-      "http://example.org/base/": "output/base/",
-      "http://example.org/other/": "output/other/"
+      "^http://example.org/base/": "output/base/",
+      "^http://example.org/other/": "output/other/"
     }
   }
 }
@@ -324,8 +324,8 @@ A quad sink that combines multiple quad sinks.
         "outputFormat": "application/n-quads",
         "fileExtension": "$.nq",
         "iriToPath": {
-          "http://example.org/base/": "output/base/",
-          "http://example.org/other/": "output/other/"
+          "^http://example.org/base/": "output/base/",
+          "^http://example.org/other/": "output/other/"
         }
       },
       {
@@ -334,8 +334,8 @@ A quad sink that combines multiple quad sinks.
         "outputFormat": "application/n-quads",
         "fileExtension": "$.nq2",
         "iriToPath": {
-          "http://example.org/base/": "output-2/base/",
-          "http://example.org/other/": "output-2/other/"
+          "^http://example.org/base/": "output-2/base/",
+          "^http://example.org/other/": "output-2/other/"
         }
       }
     ]
@@ -366,8 +366,8 @@ A quad sink that wraps over another quad sink and only passes the quads through 
         "outputFormat": "application/n-quads",
         "fileExtension": "$.nq",
         "iriToPath": {
-          "http://example.org/base/": "output/base/",
-          "http://example.org/other/": "output/other/"
+          "^http://example.org/base/": "output/base/",
+          "^http://example.org/other/": "output/other/"
         }
       }
     ]

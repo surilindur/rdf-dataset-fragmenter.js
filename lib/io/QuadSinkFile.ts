@@ -9,7 +9,7 @@ import { ParallelFileWriter } from './ParallelFileWriter';
  */
 export class QuadSinkFile implements IQuadSink {
   private readonly outputFormat: string;
-  private readonly iriToPath: Record<string, string>;
+  private readonly iriToPath: Map<RegExp, string>;
   private readonly fileWriter: ParallelFileWriter;
   private readonly log: boolean;
   private readonly fileExtension?: string;
@@ -18,7 +18,10 @@ export class QuadSinkFile implements IQuadSink {
 
   public constructor(options: IQuadSinkFileOptions) {
     this.outputFormat = options.outputFormat;
-    this.iriToPath = options.iriToPath;
+    this.iriToPath = new Map(Object.entries(options.iriToPath).map(([ exp, sub ]) => [
+      new RegExp(exp, 'u'),
+      sub,
+    ]));
     this.log = Boolean(options.log);
     this.fileExtension = options.fileExtension;
 
@@ -38,30 +41,29 @@ export class QuadSinkFile implements IQuadSink {
     }
   }
 
-  protected getFilePath(iri: string): string {
+  protected getFilePaths(iri: string): string[] {
     // Find base path from the first matching baseIRI
-    let path: string | undefined;
-    for (const [ baseIRI, basePath ] of Object.entries(this.iriToPath)) {
-      if (iri.startsWith(baseIRI)) {
-        path = basePath + iri.slice(baseIRI.length);
-        break;
+    const paths = new Set<string>();
+    for (const [ exp, sub ] of this.iriToPath) {
+      if (exp.test(iri)) {
+        // Perform the mapping using regex
+        let path = iri.replace(exp, sub);
+        // Escape illegal directory names
+        path = path.replace(/[*|"<>?:]/ug, '_');
+        // Add file extension if we don't have one yet
+        if (this.fileExtension && !/\.[a-z]$/iu.test(this.fileExtension)) {
+          path = `${path}${this.fileExtension}`;
+        }
+        paths.add(path);
       }
     }
 
     // Crash if we did not find a matching baseIRI
-    if (!path) {
-      throw new Error(`No IRI mapping found for ${iri}`);
+    if (paths.size === 0) {
+      throw new Error(`No IRI mappings found for ${iri}`);
     }
 
-    // Escape illegal directory names
-    path = path.replace(/[*|"<>?:]/ug, '_');
-
-    // Add file extension if we don't have one yet
-    if (this.fileExtension && !/\.[a-z]$/iu.test(this.fileExtension)) {
-      path = `${path}${this.fileExtension}`;
-    }
-
-    return path;
+    return [ ...paths.values() ];
   }
 
   protected async getFileStream(path: string): Promise<Writable> {
@@ -78,9 +80,12 @@ export class QuadSinkFile implements IQuadSink {
       iri = iri.slice(0, posHash);
     }
 
-    const path = this.getFilePath(iri);
-    const os = await this.getFileStream(path);
-    os.write(quad);
+    const paths = this.getFilePaths(iri);
+
+    for (const path of paths) {
+      const os = await this.getFileStream(path);
+      os.write(quad);
+    }
   }
 
   public async close(): Promise<void> {

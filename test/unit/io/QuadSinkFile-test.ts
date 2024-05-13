@@ -29,8 +29,8 @@ describe('QuadSinkFile', () => {
       sink = new QuadSinkFile({
         outputFormat: 'application/n-quads',
         iriToPath: {
-          'http://example.org/1/': '/path/to/folder1/',
-          'http://example.org/2/': '/path/to/folder2/',
+          '^http://example.org/1/': '/path/to/folder1/',
+          '^http://example.org/2/': '/path/to/folder2/',
         },
       });
       quad = DF.quad(DF.namedNode('ex:s'), DF.namedNode('ex:p'), DF.namedNode('ex:o'));
@@ -71,8 +71,8 @@ describe('QuadSinkFile', () => {
         sink = new QuadSinkFile({
           outputFormat: 'application/n-quads',
           iriToPath: {
-            'http://example.org/1/': '/path/to/folder1/',
-            'http://example.org/2/': '/path/to/folder2/',
+            '^http://example.org/1/': '/path/to/folder1/',
+            '^http://example.org/2/': '/path/to/folder2/',
           },
           fileExtension: '$.nq',
         });
@@ -86,7 +86,7 @@ describe('QuadSinkFile', () => {
 
       it('should error on an IRI not available in the mapping', async() => {
         await expect(sink.push('http://example.org/3/file.ttl', quad)).rejects
-          .toThrow(new Error('No IRI mapping found for http://example.org/3/file.ttl'));
+          .toThrow(new Error('No IRI mappings found for http://example.org/3/file.ttl'));
       });
 
       it('should remove the hash from the IRI', async() => {
@@ -121,8 +121,8 @@ describe('QuadSinkFile', () => {
       new QuadSinkFile({
         outputFormat: 'application/n-quads',
         iriToPath: {
-          'http://example.org/1/': '/path/to/folder1/',
-          'http://example.org/2/': '/path/to/folder2/',
+          '^http://example.org/1/': '/path/to/folder1/',
+          '^http://example.org/2/': '/path/to/folder2/',
         },
         log: true,
       });
@@ -134,8 +134,8 @@ describe('QuadSinkFile', () => {
       sink = new QuadSinkFile({
         outputFormat: 'application/n-quads',
         iriToPath: {
-          'http://example.org/1/': '/path/to/folder1/',
-          'http://example.org/2/': '/path/to/folder2/',
+          '^http://example.org/1/': '/path/to/folder1/',
+          '^http://example.org/2/': '/path/to/folder2/',
         },
         log: true,
       });
@@ -153,8 +153,8 @@ describe('QuadSinkFile', () => {
       sink = new QuadSinkFile({
         outputFormat: 'application/n-quads',
         iriToPath: {
-          'http://example.org/1/': '/path/to/folder1/',
-          'http://example.org/2/': '/path/to/folder2/',
+          '^http://example.org/1/': '/path/to/folder1/',
+          '^http://example.org/2/': '/path/to/folder2/',
         },
         log: true,
       });
