@@ -17,7 +17,7 @@ describe('QuadMatcherSubject', () => {
 
     it('should return true on applicable quad with 50% chance', async() => {
       matcher = new QuadMatcherSubject('s.+$', 0.5);
-      const total = 10_000;
+      const total = 20_000;
       let matchCount = 0;
       for (let i = 0; i < total; i++) {
         if (matcher.matches(DF.quad(DF.namedNode(`ex:s${randomChar()}`), DF.namedNode('ex:p'), DF.namedNode('ex:o')))) {
@@ -29,7 +29,7 @@ describe('QuadMatcherSubject', () => {
 
     it('should return true on applicable quad with 33% chance consistently', async() => {
       matcher = new QuadMatcherSubject('s.+$', 0.33);
-      const total = 10_000;
+      const total = 20_000;
       let matchCount = 0;
       for (let i = 0; i < total; i++) {
         const quad = DF.quad(DF.namedNode(`ex:s${randomChar()}`), DF.namedNode('ex:p'), DF.namedNode('ex:o'));
