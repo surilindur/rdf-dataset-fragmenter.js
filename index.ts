@@ -8,7 +8,7 @@ export * from './lib/io/QuadSinkFiltered';
 export * from './lib/io/QuadSourceComposite';
 export * from './lib/io/QuadSourceFile';
 export * from './lib/quadmatcher/IQuadMatcher';
-export * from './lib/quadmatcher/QuadMatcherPredicate';
+export * from './lib/quadmatcher/QuadMatcherComponent';
 export * from './lib/quadmatcher/QuadMatcherResourceType';
 export * from './lib/strategy/FragmentationBlankNodeBuffer';
 export * from './lib/strategy/FragmentationStrategyComposite';

@@ -1,5 +1,5 @@
 import { DataFactory } from 'rdf-data-factory';
-import { QuadMatcherPredicate } from '../../../lib/quadmatcher/QuadMatcherPredicate';
+import { QuadMatcherComponent } from '../../../lib/quadmatcher/QuadMatcherComponent';
 import type { IQuadTransformer } from '../../../lib/transform/IQuadTransformer';
 import { QuadTransformerAppendQuad } from '../../../lib/transform/QuadTransformerAppendQuad';
 import { QuadTransformerDistinct } from '../../../lib/transform/QuadTransformerDistinct';
@@ -13,7 +13,7 @@ describe('QuadTransformerDistinct', () => {
   describe('over a cloning transformer', () => {
     beforeEach(() => {
       transformer = new QuadTransformerDistinct(new QuadTransformerAppendQuad(
-        new QuadMatcherPredicate('ex:p'),
+        new QuadMatcherComponent('predicate', 'ex:p'),
         new TermTemplateStaticNamedNode('ex:s2'),
         new TermTemplateStaticNamedNode('ex:p2'),
         new TermTemplateStaticNamedNode('ex:o2'),
