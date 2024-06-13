@@ -39,6 +39,7 @@ export * from './lib/transform/QuadTransformerAppendResourceLink';
 export * from './lib/transform/QuadTransformerAppendResourceScl';
 export * from './lib/transform/QuadTransformerAppendResourceSolidTypeIndex';
 export * from './lib/transform/QuadTransformerBlankToNamed';
+export * from './lib/transform/QuadTransformerBlankToSubject';
 export * from './lib/transform/QuadTransformerClone';
 export * from './lib/transform/QuadTransformerCompositeSequential';
 export * from './lib/transform/QuadTransformerCompositeVaryingResource';
