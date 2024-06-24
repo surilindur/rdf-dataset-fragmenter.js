@@ -102,6 +102,7 @@
     "build:components": "componentsjs-generator -s lib -r rdfdf",
     "build:ts": "tsc",
     "validate": "yarn ls",
+    "prepare": "yarn run build",
     "prepack": "yarn run build",
     "version": "manual-git-changelog onversion"
   }
