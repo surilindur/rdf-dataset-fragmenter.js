@@ -2,6 +2,7 @@
   "name": "rdf-dataset-fragmenter",
   "version": "2.7.1",
   "description": "Fragments an RDF dataset into multiple parts",
+  "packageManager": "yarn@1.22.22",
   "keywords": [
     "rdf",
     "rdfjs",
