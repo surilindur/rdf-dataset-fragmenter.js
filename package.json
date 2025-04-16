@@ -40,6 +40,7 @@
     "build:components": "componentsjs-generator -s lib -r rdfdf",
     "build:ts": "tsc",
     "validate": "yarn list",
+    "prepack": "yarn run build",
     "prepare": "husky",
     "version": "manual-git-changelog onversion"
   },
